@@ -31,10 +31,9 @@ export const SearchBar = () => {
             if (!isValidPrompt) return toast.warning(`Please enter a valid Amazon product link.`);
             startLoading(async () => {
                 try {
-                    const product = await scrapeAndSaveProduct(searchPrompt);
-                    console.log({ product });
+                    await scrapeAndSaveProduct(searchPrompt);
                 } catch (error) {
-                    console.error(error);
+                    toast.error(`Something went wrong, please try again.`);
                 }
             });
         }
