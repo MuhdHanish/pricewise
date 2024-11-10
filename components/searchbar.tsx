@@ -1,5 +1,6 @@
 "use client";
 
+import { scrapeAndSaveProduct } from "@/lib/actions";
 import { FormEvent, useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -30,6 +31,8 @@ export const SearchBar = () => {
             if (!isValidPrompt) return toast.warning(`Please enter a valid Amazon product link.`);
             startLoading(async () => {
                 try {
+                    const product = await scrapeAndSaveProduct(searchPrompt);
+                    console.log({ product });
                 } catch (error) {
                     console.error(error);
                 }
