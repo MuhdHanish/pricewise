@@ -13,7 +13,8 @@ const ProductSchema = new Schema<TProduct>(
         priceHistory: [
             {
                 price: {
-                    type: Number
+                    type: Number,
+                    required: true
                 },
                 date: {
                     type: Date,
