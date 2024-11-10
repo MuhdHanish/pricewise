@@ -4,7 +4,7 @@ import "./globals.css";
 import { NavBar } from "@/components/navbar";
 
 const inter = Inter({ subsets: ['latin'] });
-export const spaceGrotesk = Space_Grotesk({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700']
 });
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased`}
+        className={`${inter.className} ${spaceGrotesk.className} antialiased`}
       >
         <main className="max-w-10xl mx-auto">
           <NavBar />
