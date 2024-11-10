@@ -36,8 +36,27 @@ export async function scrapeAndSaveProduct(url: string) {
             { upsert: true, new: true }
         );
         revalidatePath(`/products/${newProduct?._id}`);
-        return JSON.parse(JSON.stringify(newProduct));
     } catch (error: any) {
         throw new Error(`Failed to create/update product: ${error?.message}`)
-    }
+    } 
+};
+
+export async function getProductById(productId: string) {
+    try {
+        connectDB();
+        const product = await Product.findById(productId);
+        return product;
+    } catch (error: any) {
+        throw new Error(`Failed to fetch product by id: ${error?.message}`)
+    } 
+};
+
+export async function getAllProducts() {
+    try {
+        connectDB();
+        const products = await Product.find();
+        return JSON.parse(JSON.stringify(products));
+    } catch (error: any) {
+        throw new Error(`Failed to fetch all products: ${error?.message}`)
+    } 
 };
