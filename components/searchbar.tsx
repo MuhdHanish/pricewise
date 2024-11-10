@@ -12,6 +12,12 @@ export const SearchBar = () => {
                 placeholder="Product Link"
                 type="text"
             />
+            <button
+                type="submit"
+                className="searchbar-btn"
+            >
+                Search
+            </button>
         </form>
     );
 };
