@@ -6,7 +6,7 @@ import { Product } from "@/types";
 import Image from "next/image";
 
 export default async function Home() {
-  const products: Product[] = await getAllProducts();
+  const products = await getAllProducts();
   return (
     <>
       <section className="px-6 md:px-20 py-24">
