@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let isConnected = false;
 
-export const connectToDB = async () => {
+export const connectDB = async () => {
     mongoose.set('strictQuery', true);
     const databaseURI = process.env.MONGODB_URI;
     if (!databaseURI) {
@@ -18,5 +18,13 @@ export const connectToDB = async () => {
         console.log("Successfully connected to the database.");
     } catch (error: any) {
         throw new Error(`Database connection failed: ${error?.message}`);
+    }
+};
+
+export const disconnectDB = async () => {
+    if (isConnected) {
+        await mongoose.disconnect();
+        isConnected = false;
+        console.log("Database connection closed.");
     }
 };
