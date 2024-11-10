@@ -55,7 +55,7 @@ export async function getAllProducts() {
     try {
         connectDB();
         const products = await Product.find();
-        return JSON.parse(JSON.stringify(products));
+        return products;
     } catch (error: any) {
         throw new Error(`Failed to fetch all products: ${error?.message}`)
     } 
