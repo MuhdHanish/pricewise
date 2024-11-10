@@ -5,7 +5,11 @@ const ProductSchema = new Schema<TProduct>(
     {
         url: { type: String, required: true, unique: true },
         currency: { type: String, default: '$' },
-        image: { type: String, default: "https://hryoutest.in.ua/uploads/images/default.jpg" },
+        image: {
+            type: String,
+            default: "https://hryoutest.in.ua/uploads/images/default.jpg",
+            set: (value: any) => value || "https://hryoutest.in.ua/uploads/images/default.jpg"
+         },
         imageUrls: { type: [String], default: [] },
         title: { type: String, required: true },
         currentPrice: { type: Number, required: true },
