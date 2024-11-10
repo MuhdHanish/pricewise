@@ -11,7 +11,6 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Pricewise",
-  description: "Effortlessly track product prices and save money on online shopping with Pricewise. Pricewise helps you monitor price changes across various websites, ensuring you get the best deals every time.",
 };
 
 export default function RootLayout({
