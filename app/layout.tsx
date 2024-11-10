@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "@/components/navbar";
+import { SonnerToastProiver } from "@/components/sonner-toast-provider";
 
 const inter = Inter({ subsets: ['latin'] });
 const spaceGrotesk = Space_Grotesk({
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body
         className={`${inter.className} ${spaceGrotesk.className} antialiased`}
       >
@@ -27,6 +28,7 @@ export default function RootLayout({
           <NavBar />
           {children}
         </main>
+        <SonnerToastProiver />
       </body>
     </html>
   );
