@@ -33,7 +33,11 @@ export default function Home() {
       <section className="trending-section">
         <h2 className="section-text">Trending</h2>
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {[{ id: 1, name: "Apple Iphone 15" }, { id: 2, name: "The Art of War" }, { id: 3, name: "Acer Nitro" }]?.map((product, index) => (
+          {[
+            { id: 1, name: "Apple Iphone 15" },
+            { id: 2, name: "The Art of War" },
+            { id: 3, name: "Acer Nitro" }
+          ]?.map((product, index) => (
             <div key={`${product?.id}-${index}`}>{product?.name}</div>
           ))}
         </div>
