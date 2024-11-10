@@ -1,5 +1,6 @@
 export type PriceHistoryItem = {
     price: number;
+    date: Date;
 };
 
 export type User = {
@@ -10,7 +11,8 @@ export type Product = {
     _id?: string;
     url: string;
     currency: string;
-    image: string;
+    image: string | null;
+    imageUrls: string[] | [];
     title: string;
     currentPrice: number;
     originalPrice: number;
