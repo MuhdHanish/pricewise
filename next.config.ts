@@ -2,12 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  experimental: {
-    serverComponentsExternalPackages: ['mongoose']
-  },
+  serverExternalPackages: ['mongoose'],
   images: {
-    domains: ['m.media-amazon.com', 'hryoutest.in.ua']
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'hryoutest.in.ua'
+      }
+    ]
   }
+
 };
 
 export default nextConfig;
