@@ -1,5 +1,6 @@
 import { PriceInfoCard } from "@/components/price-info-card";
-import { getProductById } from "@/lib/actions";
+import { ProductCard } from "@/components/prodcut-card";
+import { getProductById, getSimilarProducts } from "@/lib/actions";
 import { formatNumber } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,16 +9,18 @@ import { redirect } from "next/navigation";
 export default async function Product({ params: { id } }: { params: { id: string } }) {
     const product = await getProductById(id);
     if (!product) redirect(`/`);
+    const products = await getSimilarProducts(id);
     return (
         <div className="product-container">
             <div className="flex gap-28 flex-col xl:flex-row">
-                <div className="product-image">
+                <div className="product-image my-auto">
                     <Image
                         src={product?.image || 'https://hryoutest.in.ua/uploads/images/default.jpg'}
-                        alt={product?.title}
-                        width={580}
+                        alt={product?.title || "Product-image"}
+                        width={400}
                         height={400}
-                        className="mx-auto"
+                        quality={100}
+                        className="mx-auto h-fit object-contain"
                     />
                 </div>
                 <div className="flex-1 flex flex-col">
@@ -69,8 +72,8 @@ export default async function Product({ params: { id } }: { params: { id: string
                             <p className="text-[28px]">{product?.currency} {formatNumber(product?.currentPrice)}</p>
                             <p className="text-[20px] opacity-50 line-through">{product?.currency} {formatNumber(product?.originalPrice)}</p>
                         </div>
-                        <div className="flex flex-col gap-4">
-                            <div className="flex gap-3 text-sm font-semibold">
+                        <div className="flex flex-col gap-4 text-sm">
+                            <div className="flex gap-3 font-semibold">
                                 <div className="product-stars">
                                     <Image
                                         src={`/assets/icons/star.svg`}
@@ -92,10 +95,12 @@ export default async function Product({ params: { id } }: { params: { id: string
                                     <p className="text-secondary">{product?.reviewsCount} Reviews</p>
                                 </div>
                             </div>
-                            <p className="text-sm text-black opacity-50">
-                                <span className="text-primary-green">{Math.floor(Math.random() * (98 - 91 + 1)) + 91}%</span>{" "}
-                                of buyers have recommended this.
-                            </p>
+                            {(product?.stars > 0 || product?.reviewsCount > 0) &&
+                                <p className="text-black opacity-50">
+                                    <span className="text-primary-green">{Math.floor(Math.random() * (98 - 91 + 1)) + 91}%</span>{" "}
+                                    of buyers have recommended this.
+                                </p>
+                            }
                         </div>
                     </div>
                     <div className="my-7 flex flex-col gap-5">
@@ -139,11 +144,28 @@ export default async function Product({ params: { id } }: { params: { id: string
                         width={22}
                         height={22}
                     />
-                    <Link href={`/`} className="text-base text-white">
+                    <Link
+                        href={product?.url}
+                        target="_blank"
+                        className="text-base text-white"
+                    >
                         Buy Now
                     </Link>
                 </button>
             </div>
+            {products && products?.length > 0 &&
+                <div className="py-14 flex flex-col gap-4 w-full">
+                    <p className="section-text">Similar Products</p>
+                    <div className="flex flex-wrap gap-10 mt-7 w-full">
+                        {products?.map((product, index) => (
+                            <ProductCard
+                                key={`${product?._id}-${index}`}
+                                product={product}
+                            />
+                        ))}
+                    </div>
+                </div>
+            }
         </div>
     );
 };
