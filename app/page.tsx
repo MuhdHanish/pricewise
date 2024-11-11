@@ -33,14 +33,16 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="trending-section">
-        <h2 className="section-text">Trending</h2>
-        <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {products?.map((product, index) => (
-            <ProductCard key={`${product?._id}-${index}`} product={product}/>
-          ))}
-        </div>
-      </section>
+      {products && products?.length > 0 &&
+        <section className="trending-section">
+          <h2 className="section-text">Trending</h2>
+          <div className="flex flex-wrap gap-x-8 gap-y-16">
+            {products?.map((product, index) => (
+              <ProductCard key={`${product?._id}-${index}`} product={product} />
+            ))}
+          </div>
+        </section>
+      }
     </>
   );
 };
