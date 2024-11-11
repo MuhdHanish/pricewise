@@ -66,7 +66,7 @@
   }
 
   .product-image {
-    @apply flex-grow xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px];
+    @apply flex-grow xl:max-w-[50%] max-w-full py-16 border rounded-[17px];
   }
 
   .product-info {
@@ -134,7 +134,7 @@
   }
 
   .product-card_img {
-    @apply max-h-[250px] object-contain w-full h-full bg-transparent;
+    @apply max-h-[250px] object-cover w-full h-full bg-transparent;
   }
 
   .product-title {
