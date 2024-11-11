@@ -1,12 +1,14 @@
 import { PriceInfoCard } from "@/components/price-info-card";
 import { ProductCard } from "@/components/prodcut-card";
+import { TrackModal } from "@/components/track-modal";
 import { getProductById, getSimilarProducts } from "@/lib/actions";
 import { formatNumber } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function Product({ params: { id } }: { params: { id: string } }) {
+export default async function Product({ params }: { params: { id: string } }) {
+    const { id } = await params;
     const product = await getProductById(id);
     if (!product) redirect(`/`);
     const products = await getSimilarProducts(id);
@@ -127,7 +129,7 @@ export default async function Product({ params: { id } }: { params: { id: string
                             />
                         </div>
                     </div>
-                    {/* Modal */}
+                    <TrackModal />
                 </div>
             </div>
             <div className="flex flex-col gap-16">
