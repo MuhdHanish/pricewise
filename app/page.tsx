@@ -2,7 +2,6 @@ import { HeroCarousel } from "@/components/hero-carousel";
 import { ProductCard } from "@/components/prodcut-card";
 import { SearchBar } from "@/components/searchbar";
 import { getAllProducts } from "@/lib/actions";
-import { Product } from "@/types";
 import Image from "next/image";
 
 export default async function Home() {
