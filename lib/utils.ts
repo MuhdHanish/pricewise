@@ -40,12 +40,30 @@ export function extractDescription($: any) {
         ".a-expander-content p",
     ];
 
+    const unwantedPatterns = [
+        "download Flash Player",
+        "service center",
+        "call Amazon",
+        "return",
+        "verification",
+        "5 star",
+        "4 star",
+        "3 star",
+        "2 star",
+        "1 star",
+    ];
+
     for (const selector of selectors) {
         const elements = $(selector);
         if (elements.length > 0) {
             const textContent = elements
                 .map((_: any, element: any) => $(element).text().trim())
                 .get()
+                .filter((text: string) => {
+                    return !unwantedPatterns.some((pattern) =>
+                        text.toLowerCase().includes(pattern.toLowerCase())
+                    );
+                })
                 .join("\n");
             return textContent;
         }
