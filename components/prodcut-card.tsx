@@ -15,9 +15,10 @@ export const ProductCard = ({
             <div className="product-card_img-container">
                 <Image
                     src={product?.image || 'https://hryoutest.in.ua/uploads/images/default.jpg'}
-                    alt={product?.title}
+                    alt={product?.title || "Product-image"}
                     width={200}
                     height={200}
+                    quality={100} 
                     className="proudct-card_img"
                 />
             </div>
