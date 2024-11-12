@@ -38,6 +38,7 @@ export async function scrapeAndSaveProduct(url: string) {
             { upsert: true, new: true }
         );
         revalidatePath(`/product/${newProduct?._id}`);
+        return JSON.parse(JSON.stringify(newProduct));
     } catch (error: any) {
         throw new Error(`Failed to create/update product: ${error?.message}`)
     } 
@@ -68,7 +69,7 @@ export async function getSimilarProducts(productId:string): Promise<TProduct[] |
         connectDB();
         const currentProduct = await Product.findById(productId);
         if (!currentProduct) return null;
-        const similarProducts = await Product.find({ _id: { $ne: productId } }).limit(3);
+        const similarProducts = await Product.find({ _id: { $ne: productId } }).sort({ _id: -1 }).limit(4);
         return similarProducts?.length ? JSON.parse(JSON.stringify(similarProducts)) : [];
     } catch (error: any) {
         throw new Error(`Failed to fetch similar products: ${error?.message}`)
