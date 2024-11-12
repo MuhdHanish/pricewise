@@ -11,7 +11,7 @@ export async function scrapeAmazonProduct(url: string) {
     const password = process.env.BRIGHT_DATA_PASSWORD;
 
     if (!username || !password) {
-        throw new Error("Bright Data credentials are missing from environment variables.");
+        throw new Error("Bright Data credentials are missing. Please ensure the environment variables BRIGHT_DATA_USERNAME and BRIGHT_DATA_PASSWORD are set.");
     }
 
     const options = {
