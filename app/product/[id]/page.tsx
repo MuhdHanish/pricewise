@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function Product({ params }: { params: { id: string } }) {
+export default async function Product({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const product = await getProductById(id);
     if (!product) redirect(`/`);
@@ -129,7 +129,7 @@ export default async function Product({ params }: { params: { id: string } }) {
                             />
                         </div>
                     </div>
-                    <TrackModal product={product}/>
+                    <TrackModal product={product} />
                 </div>
             </div>
             <div className="flex flex-col gap-16">
