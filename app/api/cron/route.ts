@@ -3,7 +3,11 @@ import { connectDB } from "@/lib/mongoose";
 import { generateEmailBody, sendEmail } from "@/lib/nodemailer";
 import { scrapeAmazonProduct } from "@/lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "@/lib/utils";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+
+export const maxDuration = 300;
+export const daynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET() {
     try {
