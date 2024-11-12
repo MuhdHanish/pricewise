@@ -130,11 +130,15 @@
   }
 
   .product-card_img-container {
-    @apply flex-1 relative flex flex-col gap-5 p-4 rounded-md;
+    @apply flex-1 relative flex flex-col gap-5 p-4 rounded-md items-center;
   }
 
   .product-card_img {
     @apply max-h-[250px] object-contain w-full h-full bg-transparent;
+  }
+
+  .truncated-text {
+    @apply max-w-[250px] whitespace-nowrap overflow-hidden overflow-ellipsis;
   }
 
   .product-title {
