@@ -1,6 +1,7 @@
 "use client";
 
 import { scrapeAndSaveProduct } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -22,6 +23,7 @@ const isValidAmazoneProductURL = (url: string) => {
 };
 
 export const SearchBar = () => {
+    const router = useRouter();
     const [loading, startLoading] = useTransition();
     const [searchPrompt, setSearchPrompt] = useState("");
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -31,7 +33,8 @@ export const SearchBar = () => {
             if (!isValidPrompt) return toast.warning(`Please enter a valid Amazon product link.`);
             startLoading(async () => {
                 try {
-                    await scrapeAndSaveProduct(searchPrompt);
+                    const product = await scrapeAndSaveProduct(searchPrompt);
+                    product && router.push(`/product/${product?._id}`);
                 } catch (error) {
                     toast.error(`Something went wrong, please try again.`);
                 }
