@@ -2,7 +2,7 @@ import { PriceInfoCard } from "@/components/price-info-card";
 import { ProductCard } from "@/components/prodcut-card";
 import { TrackModal } from "@/components/track-modal";
 import { getProductById, getSimilarProducts } from "@/lib/actions";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, truncateText } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -135,8 +135,8 @@ export default async function Product({ params }: { params: Promise<{ id: string
             <div className="flex flex-col gap-16">
                 <div className="flex flex-col gap-4">
                     <h3 className="text-2xl text-secondary font-semibold">Description</h3>
-                    <div className="flex flex-col gap4">
-                        {product?.description?.split('\n')}
+                    <div className="flex flex-col gap-4">
+                        {truncateText(product?.description, 1000)}
                     </div>
                 </div>
                 <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
@@ -158,7 +158,7 @@ export default async function Product({ params }: { params: Promise<{ id: string
             {products && products?.length > 0 &&
                 <div className="py-14 flex flex-col gap-4 w-full">
                     <p className="section-text">Similar Products</p>
-                    <div className="flex flex-wrap gap-10 mt-7 w-full">
+                    <div className="flex flex-wrap gap-x-8 gap-y-16 mt-7 w-full justify-center">
                         {products?.map((product, index) => (
                             <ProductCard
                                 key={`${product?._id}-${index}`}
