@@ -129,7 +129,7 @@ export default async function Product({ params }: { params: { id: string } }) {
                             />
                         </div>
                     </div>
-                    <TrackModal />
+                    <TrackModal product={product}/>
                 </div>
             </div>
             <div className="flex flex-col gap-16">
