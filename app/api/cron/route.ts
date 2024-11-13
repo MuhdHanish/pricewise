@@ -24,11 +24,11 @@ export async function GET() {
         // 1. SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
         await Promise.all(
             products.map(async (currentProduct) => {
-                const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
+                const scrapedProduct = await scrapeAmazonProduct(currentProduct?.url);
 
                 if (scrapedProduct) {
                     const updatedPriceHistory: any = [
-                        ...currentProduct.priceHistory,
+                        ...currentProduct?.priceHistory,
                         { price: scrapedProduct?.currentPrice },
                     ];
 

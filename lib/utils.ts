@@ -11,15 +11,15 @@ const THRESHOLD_PERCENTAGE = 40;
 
 export function extractPrice(...elements: any) {
     for (const element of elements) {
-        const priceText = element.text().trim();
+        const priceText = element?.text()?.trim();
 
         if (priceText) {
-            const cleanPrice = priceText.replace(/[^\d.]/g, '');
+            const cleanPrice = priceText?.replace(/[^\d.]/g, '');
 
             let firstPrice;
 
             if (cleanPrice) {
-                firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
+                firstPrice = cleanPrice?.match(/\d+\.\d{2}/)?.[0];
             }
 
             return firstPrice || cleanPrice;
@@ -30,7 +30,7 @@ export function extractPrice(...elements: any) {
 }
 
 export function extractCurrency(element: any) {
-    const currencyText = element.text().trim().slice(0, 1);
+    const currencyText = element?.text()?.trim()?.slice(0, 1);
     return currencyText ? currencyText : "";
 }
 
@@ -55,13 +55,13 @@ export function extractDescription($: any) {
 
     for (const selector of selectors) {
         const elements = $(selector);
-        if (elements.length > 0) {
+        if (elements?.length > 0) {
             const textContent = elements
-                .map((_: any, element: any) => $(element).text().trim())
+                .map((_: any, element: any) => $(element)?.text()?.trim())
                 .get()
                 .filter((text: string) => {
-                    return !unwantedPatterns.some((pattern) =>
-                        text.toLowerCase().includes(pattern.toLowerCase())
+                    return !unwantedPatterns?.some((pattern) =>
+                        text?.toLowerCase()?.includes(pattern?.toLowerCase())
                     );
                 })
                 .join("\n");
@@ -75,30 +75,30 @@ export function extractDescription($: any) {
 export function getHighestPrice(priceList: PriceHistoryItem[]) {
     let highestPrice = priceList[0];
 
-    for (let i = 0; i < priceList.length; i++) {
-        if (priceList[i].price > highestPrice.price) {
+    for (let i = 0; i < priceList?.length; i++) {
+        if (priceList[i]?.price > highestPrice?.price) {
             highestPrice = priceList[i];
         }
     }
 
-    return highestPrice.price;
+    return highestPrice?.price;
 }
 
 export function getLowestPrice(priceList: PriceHistoryItem[]) {
     let lowestPrice = priceList[0];
 
-    for (let i = 0; i < priceList.length; i++) {
-        if (priceList[i].price < lowestPrice.price) {
+    for (let i = 0; i < priceList?.length; i++) {
+        if (priceList[i]?.price < lowestPrice?.price) {
             lowestPrice = priceList[i];
         }
     }
 
-    return lowestPrice.price;
+    return lowestPrice?.price;
 }
 
 export function getAveragePrice(priceList: PriceHistoryItem[]) {
-    const sumOfPrices = priceList.reduce((acc, curr) => acc + curr.price, 0);
-    const averagePrice = sumOfPrices / priceList.length || 0;
+    const sumOfPrices = priceList?.reduce((acc, curr) => acc + curr?.price, 0);
+    const averagePrice = sumOfPrices / priceList?.length || 0;
 
     return averagePrice;
 }
@@ -107,23 +107,23 @@ export const getEmailNotifType = (
     scrapedProduct: Product,
     currentProduct: Product
 ) => {
-    const lowestPrice = getLowestPrice(currentProduct.priceHistory);
+    const lowestPrice = getLowestPrice(currentProduct?.priceHistory);
 
-    if (scrapedProduct.currentPrice < lowestPrice) {
-        return Notification.LOWEST_PRICE as keyof typeof Notification;
+    if (scrapedProduct?.currentPrice < lowestPrice) {
+        return Notification?.LOWEST_PRICE as keyof typeof Notification;
     }
-    if (!scrapedProduct.isOutOfStock && currentProduct.isOutOfStock) {
-        return Notification.CHANGE_OF_STOCK as keyof typeof Notification;
+    if (!scrapedProduct?.isOutOfStock && currentProduct?.isOutOfStock) {
+        return Notification?.CHANGE_OF_STOCK as keyof typeof Notification;
     }
-    if (scrapedProduct.discountRate >= THRESHOLD_PERCENTAGE) {
-        return Notification.THRESHOLD_MET as keyof typeof Notification;
+    if (scrapedProduct?.discountRate >= THRESHOLD_PERCENTAGE) {
+        return Notification?.THRESHOLD_MET as keyof typeof Notification;
     }
 
     return null;
 };
 
 export const formatNumber = (num: number = 0) => {
-    return num.toLocaleString(undefined, {
+    return num?.toLocaleString(undefined, {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     });
@@ -165,27 +165,27 @@ export const formatDateTime = (dateString: Date | string) => {
         year: 'numeric'
     };
 
-    const formattedDateTime: string = new Date(dateString).toLocaleString(
+    const formattedDateTime: string = new Date(dateString)?.toLocaleString(
         "en-US",
         dateTimeOptions
     );
 
-    const formattedDateDay: string = new Date(dateString).toLocaleString(
+    const formattedDateDay: string = new Date(dateString)?.toLocaleString(
         "en-US",
         dateDayOptions
     );
 
-    const formattedDate: string = new Date(dateString).toLocaleString(
+    const formattedDate: string = new Date(dateString)?.toLocaleString(
         "en-US",
         dateOptions
     );
 
-    const formattedTime: string = new Date(dateString).toLocaleString(
+    const formattedTime: string = new Date(dateString)?.toLocaleString(
         "en-US",
         timeOptions
     );
 
-    const formatteDateOfBirth: string = new Date(dateString).toLocaleString(
+    const formatteDateOfBirth: string = new Date(dateString)?.toLocaleString(
         "en-US",
         dateOfBirthOptions
     )
@@ -201,6 +201,6 @@ export const formatDateTime = (dateString: Date | string) => {
 
 
 export const truncateText = (text: string, maxLength: number) => {
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + '...';
+    if (text?.length <= maxLength) return text;
+    return text?.slice(0, maxLength) + '...';
 };
