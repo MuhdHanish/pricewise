@@ -14,7 +14,7 @@ export async function GET() {
         await connectDB();
 
         const products = await Product.find();
-        if (!products || products.length === 0) {
+        if (!products || products?.length === 0) {
             return NextResponse.json(
                 { message: "No products found." },
                 { status: 404 }
@@ -23,7 +23,7 @@ export async function GET() {
 
         // 1. SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
         await Promise.all(
-            products.map(async (currentProduct) => {
+            products?.map(async (currentProduct) => {
                 const scrapedProduct = await scrapeAmazonProduct(currentProduct?.url);
 
                 if (scrapedProduct) {
@@ -51,12 +51,12 @@ export async function GET() {
                         const notificationType = getEmailNotifType(scrapedProduct, currentProduct);
                         if (notificationType && updatedProduct?.users?.length as number > 0) {
                             const productInfo = {
-                                title: updatedProduct.title,
-                                url: updatedProduct.url,
+                                title: updatedProduct?.title,
+                                url: updatedProduct?.url,
                             };
 
                             const emailContent = generateEmailBody(productInfo, notificationType);
-                            const userEmails = updatedProduct?.users?.map(user => user.email) || [];
+                            const userEmails = updatedProduct?.users?.map(user => user?.email) || [];
 
                             if (userEmails?.length as number > 0) {
                                 await sendEmail(emailContent, userEmails);
