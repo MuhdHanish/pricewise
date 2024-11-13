@@ -29,7 +29,7 @@ export async function GET() {
                 if (scrapedProduct) {
                     const updatedPriceHistory: any = [
                         ...currentProduct.priceHistory,
-                        { price: scrapedProduct.currentPrice },
+                        { price: scrapedProduct?.currentPrice },
                     ];
 
                     const product = {
@@ -41,7 +41,7 @@ export async function GET() {
                     };
 
                     const updatedProduct = await Product.findOneAndUpdate(
-                        { _id: scrapedProduct.url },
+                        { _id: scrapedProduct?.url },
                         { ...product },
                         { new: true }
                     );
@@ -66,14 +66,14 @@ export async function GET() {
                 }
             })
         );
-
         return NextResponse.json(
             { message: "Products updated and notifications sent successfully." },
             { status: 200 }
         );
     } catch (error: any) {
+        console.error(`Error in GET: ${error?.message}`);
         return NextResponse.json(
-            { message: `Error occurred: ${error.message}` },
+            { message: `Error occurred: ${error?.message}` },
             { status: 500 }
         );
     }
