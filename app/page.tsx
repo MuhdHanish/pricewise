@@ -21,7 +21,7 @@ export default async function Home() {
               />
             </p>
             <h1 className="head-text">
-              Unleash the Power of
+              Unleash the Power of{" "}
               <span>Price<span className="text-primary">Wise</span></span>
             </h1>
             <p className="mt-6">
