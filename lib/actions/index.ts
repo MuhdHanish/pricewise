@@ -37,6 +37,7 @@ export async function scrapeAndSaveProduct(url: string) {
             { ...product, },
             { upsert: true, new: true }
         );
+        revalidatePath(`/`);
         revalidatePath(`/product/${newProduct?._id}`);
         return JSON.parse(JSON.stringify(newProduct));
     } catch (error: any) {
