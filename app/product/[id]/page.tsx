@@ -139,21 +139,20 @@ export default async function Product({ params }: { params: Promise<{ id: string
                         {truncateText(product?.description, 1000)}
                     </div>
                 </div>
-                <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
-                    <Image
-                        src={`/assets/icons/bag.svg`}
-                        alt="bag-icon"
-                        width={22}
-                        height={22}
-                    />
-                    <Link
-                        href={product?.url}
-                        target="_blank"
-                        className="text-base text-white"
-                    >
+                <Link
+                    href={product?.url}
+                    target="_blank"
+                >
+                    <button className="btn w-fit mx-auto text-base text-white flex items-center justify-center gap-3 min-w-[200px]">
+                        <Image
+                            src={`/assets/icons/bag.svg`}
+                            alt="bag-icon"
+                            width={22}
+                            height={22}
+                        />
                         Buy Now
-                    </Link>
-                </button>
+                    </button>
+                </Link>
             </div>
             {products && products?.length > 0 &&
                 <div className="py-14 flex flex-col gap-4 w-full">
